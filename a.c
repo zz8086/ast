@@ -60,12 +60,14 @@ int main(void)
                     }
                     char *name = json_get_string(decl_obj, "name");
                     strcpy(name_array[i].name, name);
+                    printf("-----------------------------\n");
                     printf("함수 이름 : %s ", name); printf("리턴 타입 : ");
                     json_print(decl_type_type_names_obj); putchar('\n');
+                    if(json_is_null(json_get(decl_type_obj, "args"))) printf(" 파라미터 타입과 변수명이 없습니다. \n");
                     count++;
-            }   
+                    }   
     }
-
+    printf("-----------------------------\n");
     printf("총 함수 갯수 : %d \n", count);
 
     free(str);
