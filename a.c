@@ -51,12 +51,6 @@ int main(void)
                     if(decl_type_type_names_type == JSON_UNDEFINED) {
                         json_value decl_type_type_type_type_obj = json_get(decl_type_type_type_obj, "type");
                         json_value decl_type_type_type_type_names_obj = json_get(decl_type_type_type_type_obj, "names", 0);
-                        // char *name = json_get_string(decl_obj, "name");
-                        // strcpy(name_array[i].name, name);
-                        // printf("함수 이름 : %s ", name); printf("리턴 타입 : ");
-                        // json_print(decl_type_type_type_type_names_obj); putchar('\n');
-                        // count++;
-                        // continue;
                     }
                     char *name = json_get_string(decl_obj, "name");
                     strcpy(name_array[i].name, name);
@@ -73,7 +67,19 @@ int main(void)
                         {
                             json_value decl_type_args_params_array = json_get(decl_type_args_params_obj, j);
                             json_value decl_type_args_params_type_obj = json_get(decl_type_args_params_array, "type");
+                            if(1 == j)
+                            {
+                                json_value decl_type_args_params_type_declname_obj = json_get(decl_type_args_params_type_obj, "declname");
+                                printf("변수 이름 : ");
+                                json_print(decl_type_args_params_type_declname_obj);
+                            }
                             json_value decl_type_args_params_type_type_obj = json_get(decl_type_args_params_type_obj, "type");
+                            if(1 == j)
+                            {
+                                json_value decl_type_args_params_type_type_names_obj = json_get(decl_type_args_params_type_type_obj, "names", 0);
+                                printf(" 파라미터 타입 : ");
+                                json_print(decl_type_args_params_type_type_names_obj); putchar('\n');
+                            }
                             json_value decl_type_args_params_type_type_declname_obj = json_get(decl_type_args_params_type_type_obj, "declname");
                             json_value decl_type_args_params_type_type_type_obj = json_get(decl_type_args_params_type_type_obj, "type");
                             json_value decl_type_args_params_type_type_type_names_obj = json_get(decl_type_args_params_type_type_type_obj, "names", 0);
