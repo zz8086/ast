@@ -3,7 +3,7 @@
 #include <string.h>
 #include "json_c.c"
 
-typedef struct {            // 코드 삭제마렵네 ㅋㅋ 내일 해야할것 3번째 파라미터 가져오면 되는데 존나 쉽게 미리 만들어두고 하면 됬네 
+typedef struct {            
     char name[50];
 } decl;
 
@@ -12,7 +12,8 @@ int main(void)
     long file_size;
     char *str;
     int count = 0;
-
+    int ifcount = 0;
+    
     FILE *fp = fopen("ast.json", "r");
 
     if (fp == NULL) 
@@ -76,7 +77,18 @@ int main(void)
                         {
                             json_value decl_type_args_params_array = json_get(decl_type_args_params_obj, j);
                             json_value decl_type_args_params_type_obj = json_get(decl_type_args_params_array, "type");
-                            if(j >= 1)
+                            json_type decl_type_args_params_type_declname_type = json_get_type(json_get(decl_type_args_params_type_obj, "declname"));
+                            if(decl_type_args_params_type_declname_type == JSON_UNDEFINED)
+                            {
+                                json_value decl_type_args_params_type_type_obj = json_get(decl_type_args_params_type_obj, "type");
+                                json_value decl_type_args_params_type_declname_obj = json_get(decl_type_args_params_type_type_obj, "declname");
+                                json_value decl_type_args_params_type_type_type_obj = json_get(decl_type_args_params_type_type_obj, "type");
+                                json_value decl_type_args_params_type_type_type_names_obj = json_get(decl_type_args_params_type_type_type_obj, "names", 0);
+                                printf("변수 이름 : ");
+                                json_print(decl_type_args_params_type_declname_obj); printf(" 파라미터 타입 : ");
+                                json_print(decl_type_args_params_type_type_type_names_obj); putchar('\n');
+                            }
+                            else
                             {
                                 json_value decl_type_args_params_type_declname_obj = json_get(decl_type_args_params_type_obj, "declname");
                                 json_value decl_type_args_params_type_type_obj = json_get(decl_type_args_params_type_obj, "type");
@@ -84,16 +96,6 @@ int main(void)
                                 printf("변수 이름 : ");
                                 json_print(decl_type_args_params_type_declname_obj); printf(" 파라미터 타입 : ");
                                 json_print(decl_type_args_params_type_type_names_obj); putchar('\n');
-                            }
-                            else
-                            {
-                            json_value decl_type_args_params_type_type_obj = json_get(decl_type_args_params_type_obj, "type");
-                            json_value decl_type_args_params_type_type_declname_obj = json_get(decl_type_args_params_type_type_obj, "declname");
-                            json_value decl_type_args_params_type_type_type_obj = json_get(decl_type_args_params_type_type_obj, "type");
-                            json_value decl_type_args_params_type_type_type_names_obj = json_get(decl_type_args_params_type_type_type_obj, "names", 0);
-                            printf("변수 이름 : ");
-                            json_print(decl_type_args_params_type_type_declname_obj); printf(" 파라미터 타입 : ");
-                            json_print(decl_type_args_params_type_type_type_names_obj); putchar('\n');
                             }
                         }
 
